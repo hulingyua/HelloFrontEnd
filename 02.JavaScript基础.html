@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>02.JavaScript基础笔记</title>
+<title>02.JavaScript基础</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -1196,6 +1196,14 @@ str = &quot;  a b  co e f ox y o zz op p   &quot;;
 console.log(str.replace(/o/g, &quot;!&quot;));   //正则表达式
 //把一个字符串中所有的空格全部去掉
 console.log(str.replace(/ /g, &quot;&quot;));
+</code></pre>
+
+</li>
+<li>
+<p>当以url的形式（url?param=value）传递参数时，如果传递的是中文字符串那么在接收的时候是乱码形式。</p>
+<pre><code>//decodeURI() 函数解码一个由encodeURI 先前创建的统一资源标识符（URI）或类似的例程。
+encodeURI(value)：将value转换成utf-8，
+decodeURI(value)：将utf-8的value反转成字符串。
 </code></pre>
 
 </li>
