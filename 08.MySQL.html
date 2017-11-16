@@ -1,13 +1,13 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>08.MySQL笔记</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --code-block-bg-color: inherit; }
+<title>08.MySQL</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --code-block-bg-color: inherit; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
 body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
 a:active, a:hover { outline: 0px; }
 .in-text-selection, ::selection { background: rgb(181, 214, 252); text-shadow: none; }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: visible; }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: visible; contain: content; }
 .for-image #write { padding-left: 8px; padding-right: 8px; }
 body.typora-export { padding-left: 30px; padding-right: 30px; }
 @media screen and (max-width: 500px) {
@@ -35,7 +35,7 @@ p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-star
 .mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0rem; -webkit-margin-after: 0rem; }
 .hidden { display: none; }
 .md-blockmeta { color: rgb(204, 204, 204); font-weight: bold; font-style: italic; }
-a { cursor: pointer; }
+a { cursor: pointer; text-decoration: none;}
 sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; }
 #write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; margin: 4px 0px 0px; }
 tr { break-inside: avoid; break-after: auto; }
@@ -77,7 +77,7 @@ blockquote > :first-child { margin-top: 0px; }
   @page { margin: 20mm 0mm; }
 }
 .footnote-line { margin-top: 0.714em; font-size: 0.7em; }
-a img, img a { cursor: pointer; }
+a img, img a { cursor: pointer; text-decoration: none;}
 pre.md-meta-block { font-size: 0.8rem; min-height: 2.86rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
 p .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
 #write .MathJax_Display { margin: 0.8em 0px 0px; }
@@ -92,7 +92,8 @@ p + .mathjax-block { margin-top: -1.143rem; }
 .md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
 .md-toc-content { position: relative; margin-left: 0px; }
 .md-toc::after, .md-toc-content::after { display: none; }
-.md-toc-item { display: block; color: rgb(65, 131, 196); text-decoration: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
 .md-toc-inner:hover { }
 .md-toc-inner { display: inline-block; cursor: pointer; }
 .md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: bold; }
@@ -216,8 +217,8 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 </style>
 </head>
 <body class='typora-export' >
-<div  id='write'  class = 'is-node'><h1><a name='header-n111' class='md-header-anchor '></a>MySQL笔记</h1><h3><a name='header-n113' class='md-header-anchor '></a>SQL语句书写规范</h3><ul><li>关键字尽量使用全大写,实际不区分大小写</li><li>数据库名、表名、字段名称使用反引号``包括</li><li>字符串信息使用单引号或者双引号包括</li></ul><h3><a name='header-n124' class='md-header-anchor '></a>开启数据库服务器</h3><ul><li>命令行方式：<code>net start/stop mysql</code></li></ul><h3><a name='header-n129' class='md-header-anchor '></a>客户端连接数据库服务器</h3><ul><li><code>mysql[.exe] [-h主机名] [–p端口号] –u用户名 –p密码</code></li></ul><h3><a name='header-n134' class='md-header-anchor '></a>设置字符集</h3><ul><li><code>set names gbk;</code></li></ul><h3><a name='header-n139' class='md-header-anchor '></a>退出</h3><ul><li><code>exit  或者  \q  或者 quit</code></li></ul><h3><a name='header-n144' class='md-header-anchor '></a>数据库名的命名规则</h3><ul><li><strong>字母、数字、下划线</strong>组成</li><li>不建议使用纯数字的名称</li><li>命名见名知意。数据表表名或者数据库的库名使用下划线命名法。可以添加项目前缀</li><li>长度不超过32个字符，便于使用</li></ul><h3><a name='header-n158' class='md-header-anchor '></a>字段类型</h3><ul><li><p>整型</p><ul><li>int（0-21亿）  占据4个字节的空间</li><li>tinyint(-128,127)  占据1个字节的空间</li></ul></li><li><p>小数类型</p><ul><li>float  ,decimal       eg.重量，工资，奖金，价格等</li><li>使用decimal类型，实现小数的精确存储，原理为可以存储每位数字。一般用来存储与钱有关的数字。</li></ul></li><li><p>字符串型</p><ul><li>varchar(M)，char(M)  M为该字段可以存储的最多字符数，如varchar(10)。M参数不可以省略。</li><li>varchar一般用来存储长度变化比较大的字符串，如文章标题，商品名称，char存储长度比较固定的字符串，如手机号，身份证号，序列号，邮编。</li><li>此外可以使用text类型，存储较长的字符串，无需指定字符串的具体长度。</li></ul></li><li><p>日期时间型</p><ul><li>datetime,date(年月日)，time（时分秒）。年月日时分秒，也可以使用PHP获取时间戳整型数字存储。</li></ul></li></ul><h3><a name='header-n200' class='md-header-anchor '></a>列属性介绍</h3><ul><li>not null 限制字段值不能为空</li><li>default 设置字段的默认值，在没有录入时自动使用默认值填充</li><li>primary key 设置字段为主键，主键字段的值不能重复，不能为空。而且一个数据表中只能设置一个字段为主键，作为每行记录的唯一身份信息（索引）</li><li>auto_increment 设置字段为自动增长，默认从1开始自动分配编号。自增长字段必须为一个key（索引，数据结构，便于快速查找数据，相当于书的目录），一般与primary key结合使用</li><li>unique key 唯一键，设置字段的值为唯一的，可以设置多个字段为唯一键。唯一键字段的值可以为空</li><li>comment 备注字段含义</li></ul><p><div style="width:800px;text-align:center;">
-Copyright© 2017 <a style="text-decoration: none;color: #FF0066;" href="https://github.com/kingmui" target="_blank">KINGMUI</a> All Rights Reserved<br />Updated on September 22, 2017
+<div  id='write'  class = 'is-node'><h1><a name='header-n0' class='md-header-anchor '></a>MySQL笔记</h1><h3><a name='header-n2' class='md-header-anchor '></a>SQL语句书写规范</h3><ul><li>关键字尽量使用全大写,实际不区分大小写</li><li>数据库名、表名、字段名称使用反引号``包括</li><li>字符串信息使用单引号或者双引号包括</li></ul><h3><a name='header-n13' class='md-header-anchor '></a>开启数据库服务器</h3><ul><li>命令行方式：<code>net start/stop mysql</code></li></ul><h3><a name='header-n18' class='md-header-anchor '></a>客户端连接数据库服务器</h3><ul><li><code>mysql[.exe] [-h主机名] [–p端口号] –u用户名 –p密码</code></li></ul><h3><a name='header-n23' class='md-header-anchor '></a>设置字符集</h3><ul><li><code>set names gbk;</code></li></ul><h3><a name='header-n28' class='md-header-anchor '></a>退出</h3><ul><li><code>exit  或者  \q  或者 quit</code></li></ul><h3><a name='header-n33' class='md-header-anchor '></a>数据库名的命名规则</h3><ul><li><strong>字母、数字、下划线</strong>组成</li><li>不建议使用纯数字的名称</li><li>命名见名知意。数据表表名或者数据库的库名使用下划线命名法。可以添加项目前缀</li><li>长度不超过32个字符，便于使用</li></ul><h3><a name='header-n47' class='md-header-anchor '></a>SQL分类</h3><ol start='' ><li>DDL(Data Definition Languages)语句：数据定义语言，这些语句定义了不同的数据段、数据库、表、列、索引等数据库对象。常用的语句关键字主要包括create、drop、alter等。</li><li>DML(Data Manipulation Language)语句：数据操纵语句，用于添加、删除、更新和查询数据库记录，并检查数据完整性。常用的语句关键字主要包括insert、delete、update和select等。</li><li>DCL(Data Control Language)语句：数据控制语句，用于控制不同数据段直接的许可和访问级别的语句。这些语句定义了数据库、表、字段、用户的访问权限和安全级别。主要的语句关键字主要包括grant、revoke等。</li></ol><h3><a name='header-n58' class='md-header-anchor '></a>DDL语句</h3><p>是对数据库内部的对象进行创建、删除、修改等操作的语言。它和DML语句的最大区别是DML只是对表内部数据操作，而不涉及表的定义、结构的修改，更不涉及其他对象。</p><ol start='' ><li>创建数据库</li></ol><h3><a name='header-n66' class='md-header-anchor '></a>字段类型</h3><ul><li><p>整型</p><ul><li>int（0-21亿）  占据4个字节的空间</li><li>tinyint(-128,127)  占据1个字节的空间</li></ul></li><li><p>小数类型</p><ul><li>float  ,decimal       eg.重量，工资，奖金，价格等</li><li>使用decimal类型，实现小数的精确存储，原理为可以存储每位数字。一般用来存储与钱有关的数字。</li></ul></li><li><p>字符串型</p><ul><li>varchar(M)，char(M)  M为该字段可以存储的最多字符数，如varchar(10)。M参数不可以省略。</li><li>varchar一般用来存储长度变化比较大的字符串，如文章标题，商品名称，char存储长度比较固定的字符串，如手机号，身份证号，序列号，邮编。</li><li>此外可以使用text类型，存储较长的字符串，无需指定字符串的具体长度。</li></ul></li><li><p>日期时间型</p><ul><li>datetime,date(年月日)，time（时分秒）。年月日时分秒，也可以使用PHP获取时间戳整型数字存储。</li></ul></li></ul><h3><a name='header-n108' class='md-header-anchor '></a>列属性介绍</h3><ul><li>not null 限制字段值不能为空</li><li>default 设置字段的默认值，在没有录入时自动使用默认值填充</li><li>primary key 设置字段为主键，主键字段的值不能重复，不能为空。而且一个数据表中只能设置一个字段为主键，作为每行记录的唯一身份信息（索引）</li><li>auto_increment 设置字段为自动增长，默认从1开始自动分配编号。自增长字段必须为一个key（索引，数据结构，便于快速查找数据，相当于书的目录），一般与primary key结合使用</li><li>unique key 唯一键，设置字段的值为唯一的，可以设置多个字段为唯一键。唯一键字段的值可以为空</li><li>comment 备注字段含义</li></ul><p><div style="width:800px;text-align:center;">
+Copyright© 2017 <a style="text-decoration: none;color: #FF0066;" href="https://github.com/kingmui" target="_blank">KINGMUI</a> All Rights Reserved<br />Updated on October 06, 2017
 </div></p></div>
 </body>
 </html>
