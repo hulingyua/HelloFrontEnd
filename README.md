@@ -25,4 +25,6 @@ Front-End basic learning
 
 [11.移动Web](https://kingmui.github.io/HelloFrontEnd/11.移动Web.html)
 
+[14.MongoDB](https://kingmui.github.io/HelloFrontEnd/14.MongoDB.html)
+
 [my_php_functions](https://kingmui.github.io/HelloFrontEnd/my_php_functions.php)
